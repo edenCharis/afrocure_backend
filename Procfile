@@ -1,0 +1,1 @@
+web: gunicorn afrocure_backend.wsgi:application

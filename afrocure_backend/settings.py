@@ -1,4 +1,9 @@
 # afrocure_backend/settings.py
+import os
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -40,6 +45,9 @@ DATABASES = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Vite dev server
 ]
+
+ALLOWED_HOSTS = ['.onrender.com']
+DEBUG = False
 
 # JWT + DRF
 REST_FRAMEWORK = {
