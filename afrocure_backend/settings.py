@@ -8,6 +8,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+
+
+
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+
+# Optional: fallback for local development
+if not SECRET_KEY:
+    raise ValueError("The DJANGO_SECRET_KEY environment variable is not set!")
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
