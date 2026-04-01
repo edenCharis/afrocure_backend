@@ -57,6 +57,36 @@ CORS_ALLOWED_ORIGINS = [
     "https://afrocure.onrender.com",  # Production frontend
 ]
 
+
+# Middleware
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # CORS first
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',  # required
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # required
+    'django.contrib.messages.middleware.MessageMiddleware',     # required
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+# Templates
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # your custom templates
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
 ALLOWED_HOSTS = ['.onrender.com']
 DEBUG = False
 
