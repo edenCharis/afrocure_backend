@@ -43,9 +43,11 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT'),
     }
 }
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Vite dev server
+    "https://afrocure.onrender.com",  # Production frontend
+]
 
-# CORS — autoriser le frontend React
-CORS_ALLOWED_ORIGINS.append("https://afrocure.onrender.com")
 ALLOWED_HOSTS = ['.onrender.com']
 DEBUG = False
 
