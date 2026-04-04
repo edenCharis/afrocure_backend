@@ -3,19 +3,21 @@
 import os
 from pathlib import Path
 
+import dj_database_url
+
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env") 
+
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY","p6v$3!2z#e&9@r1q8s7*4t0f%y+u!o@l")
 
-
-
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
-
-# Optional: fallback for local development
-if not SECRET_KEY:
-    raise ValueError("The DJANGO_SECRET_KEY environment variable is not set!")
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -28,6 +30,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
+     'cloudinary',
+    'cloudinary_storage',
     # Local apps
     'products',
     'cart',
@@ -35,22 +39,20 @@ INSTALLED_APPS = [
     'accounts',
 ]
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # En premier !
     'django.middleware.security.SecurityMiddleware',
     # ... reste du middleware
 ]
 
-# Base de données PostgreSQL
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        engine='django.db.backends.postgresql'
+    )
 }
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Vite dev server

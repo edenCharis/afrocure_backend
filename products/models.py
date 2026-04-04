@@ -13,7 +13,7 @@ class Product(models.Model):
     category = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     description = models.TextField()
-    image = models.URLField(max_length=500)
+     image = models.ImageField(upload_to='products/')
     benefits = models.JSONField(default=list)
     usage = models.JSONField(default=list)
     ingredients = models.JSONField(default=list)
