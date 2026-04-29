@@ -11,9 +11,10 @@ class Product(models.Model):
     id = models.CharField(max_length=100, primary_key=True)  # garde vos IDs existants
     name = models.CharField(max_length=200)
     category = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=0)  # XAF, no decimals
     description = models.TextField()
     image = models.ImageField(upload_to='products/')
+    stock = models.PositiveIntegerField(default=0)
     benefits = models.JSONField(default=list)
     usage = models.JSONField(default=list)
     ingredients = models.JSONField(default=list)

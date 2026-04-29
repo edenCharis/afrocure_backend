@@ -19,15 +19,14 @@ class OrderViewSet(viewsets.ModelViewSet):
         if not cart_items.exists():
             return Response({'error': 'Panier vide'}, status=status.HTTP_400_BAD_REQUEST)
         
-        total = sum(item.get_subtotal() for item in cart_items)
-        order = Order.objects.create(user=request.user, total_price=total)
-        
+        order = Order.objects.create(user=request.user)
+
         for item in cart_items:
             OrderItem.objects.create(
                 order=order,
                 product=item.product,
                 quantity=item.quantity,
-                unit_price=item.product.price
+                price=item.product.price
             )
         
         # Vider le panier après commande
