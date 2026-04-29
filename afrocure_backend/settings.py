@@ -74,7 +74,7 @@ TEMPLATES = [
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
-        engine='django.db.backends.postgresql'
+        conn_max_age=600,
     )
 }
 
