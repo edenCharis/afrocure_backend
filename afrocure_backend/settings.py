@@ -71,9 +71,13 @@ TEMPLATES = [
     },
 ]
 
+_DATABASE_URL = os.getenv('DATABASE_URL')
+if not _DATABASE_URL:
+    raise Exception("DATABASE_URL environment variable is not set.")
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
+        default=_DATABASE_URL,
         conn_max_age=600,
     )
 }
