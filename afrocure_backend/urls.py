@@ -8,11 +8,15 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from products.views import ProductViewSet
 from cart.views import CartViewSet
 from orders.views import OrderViewSet
+from locations.views import CountryViewSet, CityViewSet, DistrictViewSet
 
 router = DefaultRouter()
 router.register(r'products', ProductViewSet)
 router.register(r'cart', CartViewSet, basename='cart')
 router.register(r'orders', OrderViewSet, basename='orders')
+router.register(r'countries', CountryViewSet)
+router.register(r'cities', CityViewSet)
+router.register(r'districts', DistrictViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

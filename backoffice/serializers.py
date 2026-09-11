@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from products.models import Product, Category
 from orders.models import Order, OrderItem
 from cart.models import CartItem
+from locations.models import Country, City, District
 
 
 class AdminUserSerializer(serializers.ModelSerializer):
@@ -39,6 +40,24 @@ class AdminUserSerializer(serializers.ModelSerializer):
 class AdminCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
+        fields = '__all__'
+
+
+class AdminCountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = '__all__'
+
+
+class AdminCitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = '__all__'
+
+
+class AdminDistrictSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = District
         fields = '__all__'
 
 

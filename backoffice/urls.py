@@ -8,6 +8,9 @@ from .views import (
     AdminOrderViewSet,
     AdminOrderItemViewSet,
     AdminCartItemViewSet,
+    AdminCountryViewSet,
+    AdminCityViewSet,
+    AdminDistrictViewSet,
     AdminLoginView,
     AdminLogoutView,
     AdminMeView,
@@ -20,6 +23,9 @@ router.register(r'products', AdminProductViewSet, basename='admin-products')
 router.register(r'orders', AdminOrderViewSet, basename='admin-orders')
 router.register(r'order-items', AdminOrderItemViewSet, basename='admin-order-items')
 router.register(r'cart-items', AdminCartItemViewSet, basename='admin-cart-items')
+router.register(r'countries', AdminCountryViewSet, basename='admin-countries')
+router.register(r'cities', AdminCityViewSet, basename='admin-cities')
+router.register(r'districts', AdminDistrictViewSet, basename='admin-districts')
 
 urlpatterns = [
     path('auth/login/', AdminLoginView.as_view(), name='admin-login'),

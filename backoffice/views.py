@@ -12,6 +12,7 @@ from rest_framework_simplejwt.exceptions import TokenError
 from products.models import Product, Category
 from orders.models import Order, OrderItem
 from cart.models import CartItem
+from locations.models import Country, City, District
 
 from .serializers import (
     AdminUserSerializer,
@@ -20,6 +21,9 @@ from .serializers import (
     AdminOrderSerializer,
     AdminOrderItemSerializer,
     AdminCartItemSerializer,
+    AdminCountrySerializer,
+    AdminCitySerializer,
+    AdminDistrictSerializer,
 )
 
 
@@ -57,6 +61,44 @@ class AdminCategoryViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
+
+
+class AdminCountryViewSet(viewsets.ModelViewSet):
+    queryset = Country.objects.all().order_by('name')
+    serializer_class = AdminCountrySerializer
+    permission_classes = [IsAdminUser]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name']
+
+
+class AdminCityViewSet(viewsets.ModelViewSet):
+    queryset = City.objects.all().order_by('name')
+    serializer_class = AdminCitySerializer
+    permission_classes = [IsAdminUser]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name']
+
+    def get_queryset(self):
+        queryset = City.objects.all().order_by('name')
+        country = self.request.query_params.get('country')
+        if country:
+            queryset = queryset.filter(country_id=country)
+        return queryset
+
+
+class AdminDistrictViewSet(viewsets.ModelViewSet):
+    queryset = District.objects.all().order_by('name')
+    serializer_class = AdminDistrictSerializer
+    permission_classes = [IsAdminUser]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name']
+
+    def get_queryset(self):
+        queryset = District.objects.all().order_by('name')
+        city = self.request.query_params.get('city')
+        if city:
+            queryset = queryset.filter(city_id=city)
+        return queryset
 
 
 class AdminProductViewSet(viewsets.ModelViewSet):
