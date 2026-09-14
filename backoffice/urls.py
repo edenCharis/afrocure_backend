@@ -12,6 +12,7 @@ from .views import (
     AdminCityViewSet,
     AdminDistrictViewSet,
     AdminHomeContentView,
+    AdminAboutContentView,
     AdminLoginView,
     AdminLogoutView,
     AdminMeView,
@@ -33,4 +34,5 @@ urlpatterns = [
     path('auth/logout/', AdminLogoutView.as_view(), name='admin-logout'),
     path('auth/me/', AdminMeView.as_view(), name='admin-me'),
     path('home-content/', AdminHomeContentView.as_view(), name='admin-home-content'),
+    path('about-content/', AdminAboutContentView.as_view(), name='admin-about-content'),
 ] + router.urls

@@ -5,7 +5,7 @@ from products.models import Product, Category
 from orders.models import Order, OrderItem
 from cart.models import CartItem
 from locations.models import Country, City, District
-from content.models import HomeContent
+from content.models import HomeContent, AboutContent
 
 
 class AdminUserSerializer(serializers.ModelSerializer):
@@ -82,6 +82,14 @@ class AdminHomeContentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HomeContent
+        fields = '__all__'
+
+
+class AdminAboutContentSerializer(serializers.ModelSerializer):
+    cards = JSONStringField(default=list)
+
+    class Meta:
+        model = AboutContent
         fields = '__all__'
 
 

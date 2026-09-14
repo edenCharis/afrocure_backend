@@ -90,3 +90,38 @@ class HomeContent(models.Model):
 
     def __str__(self):
         return "Contenu de la page d'accueil"
+
+
+def default_about_cards():
+    return [
+        {"icon": "leaf", "title": "Naturel & Vegan", "body": "Tous nos ingrédients sont d'origine naturelle, vegan et certifiés cruelty-free. Nous refusons tout compromis sur la qualité."},
+        {"icon": "sparkles", "title": "Science Avancée", "body": "Nos formules intègrent les dernières innovations cosmétiques : acide hyaluronique, céramides, MSM pour des résultats visibles."},
+        {"icon": "heart", "title": "Pour Tous", "body": "Qu'il s'agisse de boucles serrées, de tresses ou de cheveux frisés, nos soins s'adaptent à chaque texture."},
+    ]
+
+
+class AboutContent(models.Model):
+    eyebrow = models.CharField(max_length=200, default="Notre Histoire")
+    title_plain = models.CharField(max_length=200, default="Afro")
+    title_emphasis = models.CharField(max_length=200, default="Cure")
+    body = models.TextField(
+        default="Afro Cure est née d'une conviction simple : les cheveux texturés méritent des soins à la hauteur "
+                "de leur beauté. Nous combinons la richesse des plantes africaines avec la rigueur de la science "
+                "cosmétique pour créer des formules qui transforment véritablement vos cheveux."
+    )
+    cards = models.JSONField(default=default_about_cards)  # [{icon, title, body}]
+    cta_label = models.CharField(max_length=100, default="Découvrir nos soins")
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def load(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def __str__(self):
+        return "Contenu de la page À propos"

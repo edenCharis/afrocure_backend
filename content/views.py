@@ -1,7 +1,7 @@
 # content/views.py
 from rest_framework import generics, permissions
-from .models import HomeContent
-from .serializers import HomeContentSerializer
+from .models import HomeContent, AboutContent
+from .serializers import HomeContentSerializer, AboutContentSerializer
 
 
 class HomeContentView(generics.RetrieveAPIView):
@@ -10,3 +10,11 @@ class HomeContentView(generics.RetrieveAPIView):
 
     def get_object(self):
         return HomeContent.load()
+
+
+class AboutContentView(generics.RetrieveAPIView):
+    serializer_class = AboutContentSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_object(self):
+        return AboutContent.load()
