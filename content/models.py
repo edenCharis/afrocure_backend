@@ -125,3 +125,31 @@ class AboutContent(models.Model):
 
     def __str__(self):
         return "Contenu de la page À propos"
+
+
+def default_products_marquee():
+    return ["Hydratation profonde", "Boucles définies", "Sans sulfate", "Vegan", "Naturel", "Afro Cure"]
+
+
+class ProductsPageContent(models.Model):
+    eyebrow = models.CharField(max_length=200, default="Afro Cure — Collection")
+    title_plain = models.CharField(max_length=200, default="Nos")
+    title_emphasis = models.CharField(max_length=200, default="Soins")
+    description = models.TextField(
+        default="Chaque formule est pensée pour nourrir, définir et célébrer la beauté naturelle des cheveux texturés."
+    )
+    marquee_items = models.JSONField(default=default_products_marquee)  # [str]
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def load(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def __str__(self):
+        return "Contenu de la page Produits"

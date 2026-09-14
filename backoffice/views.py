@@ -14,7 +14,7 @@ from orders.models import Order, OrderItem
 from cart.models import CartItem
 from locations.models import Country, City, District
 
-from content.models import HomeContent, AboutContent
+from content.models import HomeContent, AboutContent, ProductsPageContent
 
 from .serializers import (
     AdminUserSerializer,
@@ -28,6 +28,7 @@ from .serializers import (
     AdminDistrictSerializer,
     AdminHomeContentSerializer,
     AdminAboutContentSerializer,
+    AdminProductsPageContentSerializer,
 )
 
 
@@ -238,6 +239,21 @@ class AdminAboutContentView(APIView):
     def patch(self, request):
         instance = AboutContent.load()
         serializer = AdminAboutContentSerializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+
+class AdminProductsPageContentView(APIView):
+    permission_classes = [IsAdminUser]
+
+    def get(self, request):
+        serializer = AdminProductsPageContentSerializer(ProductsPageContent.load())
+        return Response(serializer.data)
+
+    def patch(self, request):
+        instance = ProductsPageContent.load()
+        serializer = AdminProductsPageContentSerializer(instance, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
