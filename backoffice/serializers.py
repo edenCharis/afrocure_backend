@@ -5,6 +5,7 @@ from products.models import Product, Category
 from orders.models import Order, OrderItem
 from cart.models import CartItem
 from locations.models import Country, City, District
+from content.models import HomeContent
 
 
 class AdminUserSerializer(serializers.ModelSerializer):
@@ -71,6 +72,17 @@ class JSONStringField(serializers.JSONField):
             except (ValueError, TypeError):
                 self.fail('invalid')
         return super().to_internal_value(data)
+
+
+class AdminHomeContentSerializer(serializers.ModelSerializer):
+    hero_stats = JSONStringField(default=list)
+    marquee_items = JSONStringField(default=list)
+    feature_cards = JSONStringField(default=list)
+    cta_pills = JSONStringField(default=list)
+
+    class Meta:
+        model = HomeContent
+        fields = '__all__'
 
 
 class AdminProductSerializer(serializers.ModelSerializer):

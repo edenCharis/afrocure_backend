@@ -14,6 +14,8 @@ from orders.models import Order, OrderItem
 from cart.models import CartItem
 from locations.models import Country, City, District
 
+from content.models import HomeContent
+
 from .serializers import (
     AdminUserSerializer,
     AdminCategorySerializer,
@@ -24,6 +26,7 @@ from .serializers import (
     AdminCountrySerializer,
     AdminCitySerializer,
     AdminDistrictSerializer,
+    AdminHomeContentSerializer,
 )
 
 
@@ -205,6 +208,23 @@ class AdminCartItemViewSet(viewsets.ModelViewSet):
         if user_id:
             qs = qs.filter(user_id=user_id)
         return qs
+
+
+# ── Home content (CMS) ───────────────────────────────────────────────────────
+
+class AdminHomeContentView(APIView):
+    permission_classes = [IsAdminUser]
+
+    def get(self, request):
+        serializer = AdminHomeContentSerializer(HomeContent.load())
+        return Response(serializer.data)
+
+    def patch(self, request):
+        instance = HomeContent.load()
+        serializer = AdminHomeContentSerializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 
 # ── Auth ─────────────────────────────────────────────────────────────────────

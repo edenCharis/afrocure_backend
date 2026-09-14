@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'backoffice',
     'locations',
+    'content',
 ]
 
 MIDDLEWARE = [

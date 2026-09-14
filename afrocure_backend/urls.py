@@ -9,6 +9,7 @@ from products.views import ProductViewSet
 from cart.views import CartViewSet
 from orders.views import OrderViewSet
 from locations.views import CountryViewSet, CityViewSet, DistrictViewSet
+from content.views import HomeContentView
 
 router = DefaultRouter()
 router.register(r'products', ProductViewSet)
@@ -21,6 +22,7 @@ router.register(r'districts', DistrictViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api/home-content/', HomeContentView.as_view(), name='home-content'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/auth/', include('accounts.urls')),
