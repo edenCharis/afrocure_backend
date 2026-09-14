@@ -153,3 +153,46 @@ class ProductsPageContent(models.Model):
 
     def __str__(self):
         return "Contenu de la page Produits"
+
+
+def default_footer_marquee():
+    return ["Cheveux Texturés", "Beurre de Karité", "Huile de Ricin", "Vegan & Naturel", "Sans Sulfate", "Aloe Vera", "Coiffant Doux"]
+
+
+def default_footer_soins_items():
+    return ["Hydratation", "Définition", "Nourrissants", "Styling"]
+
+
+class FooterContent(models.Model):
+    brand_description = models.TextField(
+        default="Des soins efficaces, équilibrés et adaptés aux besoins réels des cheveux texturés. "
+                "Science cosmétique et plantes africaines."
+    )
+    social_eyebrow = models.CharField(max_length=200, default="Suivez-nous")
+    facebook_url = models.CharField(max_length=300, blank=True, default="#")
+    instagram_url = models.CharField(max_length=300, blank=True, default="#")
+    twitter_url = models.CharField(max_length=300, blank=True, default="#")
+
+    marquee_items = models.JSONField(default=default_footer_marquee)  # [str]
+
+    soins_label = models.CharField(max_length=200, default="Nos Soins")
+    soins_items = models.JSONField(default=default_footer_soins_items)  # [str], all link to /products
+
+    contact_email = models.CharField(max_length=200, default="contact@afrocure.fr")
+
+    copyright_text = models.CharField(max_length=200, default="© 2026 Afro Cure. Tous droits réservés.")
+    tagline = models.CharField(max_length=200, default="Célébrer la beauté naturelle")
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def load(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def __str__(self):
+        return "Contenu du pied de page"

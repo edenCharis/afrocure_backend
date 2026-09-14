@@ -14,6 +14,7 @@ from .views import (
     AdminHomeContentView,
     AdminAboutContentView,
     AdminProductsPageContentView,
+    AdminFooterContentView,
     AdminLoginView,
     AdminLogoutView,
     AdminMeView,
@@ -37,4 +38,5 @@ urlpatterns = [
     path('home-content/', AdminHomeContentView.as_view(), name='admin-home-content'),
     path('about-content/', AdminAboutContentView.as_view(), name='admin-about-content'),
     path('products-page-content/', AdminProductsPageContentView.as_view(), name='admin-products-page-content'),
+    path('footer-content/', AdminFooterContentView.as_view(), name='admin-footer-content'),
 ] + router.urls

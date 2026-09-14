@@ -5,7 +5,7 @@ from products.models import Product, Category
 from orders.models import Order, OrderItem
 from cart.models import CartItem
 from locations.models import Country, City, District
-from content.models import HomeContent, AboutContent, ProductsPageContent
+from content.models import HomeContent, AboutContent, ProductsPageContent, FooterContent
 
 
 class AdminUserSerializer(serializers.ModelSerializer):
@@ -98,6 +98,15 @@ class AdminProductsPageContentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductsPageContent
+        fields = '__all__'
+
+
+class AdminFooterContentSerializer(serializers.ModelSerializer):
+    marquee_items = JSONStringField(default=list)
+    soins_items = JSONStringField(default=list)
+
+    class Meta:
+        model = FooterContent
         fields = '__all__'
 
 

@@ -9,7 +9,7 @@ from products.views import ProductViewSet
 from cart.views import CartViewSet
 from orders.views import OrderViewSet
 from locations.views import CountryViewSet, CityViewSet, DistrictViewSet
-from content.views import HomeContentView, AboutContentView, ProductsPageContentView
+from content.views import HomeContentView, AboutContentView, ProductsPageContentView, FooterContentView
 
 router = DefaultRouter()
 router.register(r'products', ProductViewSet)
@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/home-content/', HomeContentView.as_view(), name='home-content'),
     path('api/about-content/', AboutContentView.as_view(), name='about-content'),
     path('api/products-page-content/', ProductsPageContentView.as_view(), name='products-page-content'),
+    path('api/footer-content/', FooterContentView.as_view(), name='footer-content'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/auth/', include('accounts.urls')),
