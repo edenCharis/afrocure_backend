@@ -11,6 +11,7 @@ from .views import (
     AdminCountryViewSet,
     AdminCityViewSet,
     AdminDistrictViewSet,
+    AdminTestimonialViewSet,
     AdminHomeContentView,
     AdminAboutContentView,
     AdminProductsPageContentView,
@@ -30,6 +31,7 @@ router.register(r'cart-items', AdminCartItemViewSet, basename='admin-cart-items'
 router.register(r'countries', AdminCountryViewSet, basename='admin-countries')
 router.register(r'cities', AdminCityViewSet, basename='admin-cities')
 router.register(r'districts', AdminDistrictViewSet, basename='admin-districts')
+router.register(r'testimonials', AdminTestimonialViewSet, basename='admin-testimonials')
 
 urlpatterns = [
     path('auth/login/', AdminLoginView.as_view(), name='admin-login'),

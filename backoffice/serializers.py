@@ -6,6 +6,7 @@ from orders.models import Order, OrderItem
 from cart.models import CartItem
 from locations.models import Country, City, District
 from content.models import HomeContent, AboutContent, ProductsPageContent, FooterContent
+from testimonials.models import Testimonial
 
 
 class AdminUserSerializer(serializers.ModelSerializer):
@@ -108,6 +109,12 @@ class AdminFooterContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = FooterContent
         fields = '__all__'
+
+
+class AdminTestimonialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Testimonial
+        fields = ['id', 'author_name', 'rating', 'comment', 'approved', 'created_at']
 
 
 class AdminProductSerializer(serializers.ModelSerializer):

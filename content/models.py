@@ -77,6 +77,15 @@ class HomeContent(models.Model):
     cta_pills = models.JSONField(default=default_cta_pills)  # [{icon, title, body}]
     cta_image = models.ImageField(upload_to='content/', blank=True, null=True)
 
+    # Avis clients
+    testimonials_eyebrow = models.CharField(max_length=200, default="Témoignages")
+    testimonials_title_plain = models.CharField(max_length=200, default="Ce que disent")
+    testimonials_title_emphasis = models.CharField(max_length=200, default="nos clientes")
+    testimonials_description = models.TextField(
+        default="Des retours authentiques de celles qui ont adopté nos soins au quotidien."
+    )
+    testimonials_form_label = models.CharField(max_length=200, default="Laisser un avis")
+
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):

@@ -15,6 +15,7 @@ from cart.models import CartItem
 from locations.models import Country, City, District
 
 from content.models import HomeContent, AboutContent, ProductsPageContent, FooterContent
+from testimonials.models import Testimonial
 
 from .serializers import (
     AdminUserSerializer,
@@ -30,6 +31,7 @@ from .serializers import (
     AdminAboutContentSerializer,
     AdminProductsPageContentSerializer,
     AdminFooterContentSerializer,
+    AdminTestimonialSerializer,
 )
 
 
@@ -67,6 +69,28 @@ class AdminCategoryViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
+
+
+class AdminTestimonialViewSet(viewsets.ModelViewSet):
+    queryset = Testimonial.objects.all().order_by('-created_at')
+    serializer_class = AdminTestimonialSerializer
+    permission_classes = [IsAdminUser]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['author_name', 'comment']
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        approved = self.request.query_params.get('approved')
+        if approved is not None:
+            qs = qs.filter(approved=approved.lower() in ('1', 'true'))
+        return qs
+
+    @action(detail=True, methods=['post'])
+    def approve(self, request, pk=None):
+        testimonial = self.get_object()
+        testimonial.approved = True
+        testimonial.save()
+        return Response(AdminTestimonialSerializer(testimonial).data)
 
 
 class AdminCountryViewSet(viewsets.ModelViewSet):

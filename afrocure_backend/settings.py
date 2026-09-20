@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'backoffice',
     'locations',
     'content',
+    'testimonials',
 ]
 
 MIDDLEWARE = [
