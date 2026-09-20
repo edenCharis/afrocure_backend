@@ -130,13 +130,20 @@ class AdminOrderItemSerializer(serializers.ModelSerializer):
 
 class AdminOrderSerializer(serializers.ModelSerializer):
     items = AdminOrderItemSerializer(many=True, read_only=True)
-    username = serializers.CharField(source='user.username', read_only=True)
-    email = serializers.CharField(source='user.email', read_only=True)
+    username = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+    district_name = serializers.CharField(source='district.name', read_only=True, default=None)
     total = serializers.SerializerMethodField()
 
     class Meta:
         model = Order
-        fields = ['id', 'user', 'username', 'email', 'status', 'total', 'items', 'created_at', 'updated_at']
+        fields = ['id', 'user', 'username', 'email', 'status', 'total', 'items', 'district_name', 'delivery_price', 'created_at', 'updated_at']
+
+    def get_username(self, obj):
+        return obj.user.username if obj.user else "Invité"
+
+    def get_email(self, obj):
+        return obj.user.email if obj.user else None
 
     def get_total(self, obj):
         return float(obj.get_total())

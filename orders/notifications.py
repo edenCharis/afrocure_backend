@@ -29,11 +29,14 @@ def send_whatsapp_notification(message: str):
 def notify_new_order(order):
     total = order.get_total()
     items_count = order.items.count()
-    message = (
-        f"🛍 Nouvelle commande #{order.id}\n"
-        f"Client : {order.user.username}\n"
-        f"Articles : {items_count}\n"
-        f"Total : {total} XAF\n"
-        f"Statut : {order.get_status_display()}"
-    )
-    send_whatsapp_notification(message)
+    client = order.user.username if order.user else "Client invité"
+    lines = [
+        f"🛍 Nouvelle commande #{order.id}",
+        f"Client : {client}",
+        f"Articles : {items_count}",
+    ]
+    if order.district:
+        lines.append(f"Livraison : {order.district.name} — {order.delivery_price} XAF")
+    lines.append(f"Total : {total} XAF")
+    lines.append(f"Statut : {order.get_status_display()}")
+    send_whatsapp_notification("\n".join(lines))
