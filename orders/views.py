@@ -35,6 +35,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         order = Order.objects.create(
             user=user,
             district=district,
+            phone=(request.data.get('phone') or '').strip(),
             delivery_price=district.delivery_price if district else 0,
         )
 

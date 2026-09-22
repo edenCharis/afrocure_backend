@@ -15,6 +15,7 @@ class Order(models.Model):
     # Nullable: le panier ne requiert pas de connexion (commande "invité" envoyée ensuite via WhatsApp).
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
     district = models.ForeignKey('locations.District', on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
+    phone = models.CharField(max_length=30, blank=True, default='')
     delivery_price = models.DecimalField(max_digits=10, decimal_places=0, default=0)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)

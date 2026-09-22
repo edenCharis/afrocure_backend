@@ -144,7 +144,7 @@ class AdminOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['id', 'user', 'username', 'email', 'status', 'total', 'items', 'district_name', 'delivery_price', 'created_at', 'updated_at']
+        fields = ['id', 'user', 'username', 'email', 'phone', 'status', 'total', 'items', 'district_name', 'delivery_price', 'created_at', 'updated_at']
 
     def get_username(self, obj):
         return obj.user.username if obj.user else "Invité"
