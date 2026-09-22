@@ -4,6 +4,7 @@ from django.db import models
 
 class Country(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    dial_code = models.CharField(max_length=6, blank=True, default='')  # ex: "+242"
 
     def __str__(self):
         return self.name
