@@ -126,7 +126,3 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
 }
-
-# WhatsApp notifications (CallMeBot)
-WHATSAPP_ADMIN_PHONE = os.getenv('WHATSAPP_ADMIN_PHONE')
-CALLMEBOT_API_KEY = os.getenv('CALLMEBOT_API_KEY')

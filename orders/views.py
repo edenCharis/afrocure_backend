@@ -3,7 +3,6 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from .models import Order, OrderItem
 from .serializers import OrderSerializer
-from .notifications import notify_new_order
 from products.models import Product
 from locations.models import District
 
@@ -52,8 +51,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         if not order.items.exists():
             order.delete()
             return Response({'error': 'Produits invalides'}, status=status.HTTP_400_BAD_REQUEST)
-
-        notify_new_order(order)
 
         serializer = self.get_serializer(order)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
